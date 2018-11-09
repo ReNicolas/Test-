@@ -31,4 +31,41 @@ void Network::update() {
 	}
 }
 
+vector<Synapse> Network::Neighbors(size_t n) const {
+	vector<Synapse> neighbors;
+	pair <multimap<size_t,Synapse>::const_iterator, multimap<size_t,Synapse>::const_iterator> eqRange = links.equal_range(n);
+	for (multimap<size_t,Synapse>::const_iterator it=eqRange.first; it!=eqRange.second; ++it) {
+		neighbors.push_back(it->second);
+	}
+	return neighbors;
+}
 
+	
+vector<Synapse> firingExcitatoryNeighbors(size_t n) const {
+	 vector<Synapse> neighbors = Neighbors(n); 
+	 vector<Synapse> output;
+	 for (size_t i(0), i < neighbors.size(); ++i) {
+		 if (isFiring(neighbors[i]) and isExcitatory(neighbors[i])) {
+			 output.push_back(neighbors[i]);
+		 }
+	 }
+	 return output;
+}
+
+vector<Synapse> firingInhibitoryNeighbors(size_t n) const {
+	 vector<Synapse> neighbors = Neighbors(n); 
+	 vector<Synapse> output;
+	 for (size_t i(0), i < neighbors.size(); ++i) {
+		 if (isFiring(neighbors[i]) and !isExcitatory(neighbors[i])) {
+			 output.push_back(neighbors[i]);
+		 }
+	 }
+	 return output;
+}
+
+bool Network::isFiring(size_t n) const {
+	return neurones[n]->isFiring();
+}
+bool Network::isExcitatory(size_t n) const {
+	return neurones[n]->isExcitatory();
+}

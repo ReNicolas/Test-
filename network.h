@@ -26,8 +26,36 @@ public:
       *   Updates each neuron's potential and relaxation
       */
     void update();
-    
-    vector<size_t>
+     /*! 
+	  * @param[in] the index of the neuron
+	  * @param[out] a vector containing the indexes of all
+					neurons connected to neuron, and the intensity of each link.
+	*/
+    vector<size_t> Neighbors(size_t n) const;
+    /*! 
+		@param[in] the index of the neuron
+		@param[out] a vector containing the indexes of all excitatory 
+					neurons connected to neuron n and firing, and the intensity of each link.
+	*/
+	
+    vector<size_t> firingExcitatoryNeighbors(size_t n) const;
+     /*! 
+	  * @param[in] the index of the neuron
+	  * @param[out] a vector containing the indexes of all inhibitory
+					neurons connected to neuron n and firing, and the intensity of each link.
+	*/
+    vector<size_t> firingInhibitoryNeighbors(size_t n) const; 
+     
+    /*!
+     * 	@param[in] the index of the neuron
+     * @param[out] true if the neuron is firing
+     */
+    bool isFiring(size_t n) const;
+    /*!
+     * 	@param[in] the index of the neuron
+     * @param[out] true if the neuron is excitatory
+     */
+    bool isExcitatory(size_t n) const;
 
 
 private:
