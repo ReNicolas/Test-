@@ -25,5 +25,10 @@ void Network::createLinks(double mean)
 	}
 }
 
+void Network::update() {
+	for (size_t i(0); i < size(); ++i) {
+		Neurones[i]->update();
+	}
+}
 
 
